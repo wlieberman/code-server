@@ -13,12 +13,25 @@ spec:
       containers:
       - name: code-server
         image: codercom/code-server:3.4.1
+        env:
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: coderpassword
+                key: password
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            memory: 500Mi
         ports:
         - name: http-alt
           containerPort: 8080
         volumeMounts:
-          - mountPath: /data
+          - mountPath: /home/coder/project
             name: code-vol
+      securityContext:
+        fsGroup: 1000
       volumes:
       - name: code-vol
         persistentVolumeClaim:
