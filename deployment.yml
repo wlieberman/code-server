@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: code-dep
+  namespace: codercom
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: codeserver
+    spec:
+      containers:
+      - name: code-server
+        image: codercom/code-server:3.4.1
+        ports:
+        - name: http-alt
+          containerPort: 8080
+        volumeMounts:
+          - mountPath: /data
+            name: code-vol
+      volumes:
+      - name: code-vol
+        persistentVolumeClaim:
+            claimName: code-vc
