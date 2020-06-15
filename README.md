@@ -18,8 +18,8 @@ requests to the appropriate pod.
 
 ## How To Use
 
-First, you must create the namespace and then add a secret that will be used by
-the deployment.
+Before applying all the configuration files, the namespace and a secret must be
+created.  The secret will be used to log into the site.
 
 ```bash
 kubectl apply -f 00_namespace.yml
@@ -29,9 +29,20 @@ kubectl create secret generic coderpassword -n codercom --from-file=./password.t
 
 Note: `mysecretpassword` above should be the password of your choice.
 
-After this has been created, apply all the yaml files and things should be up
+Update `host` key in the web-ingress.yml file to point at your desired web location.
+
+```yaml
+spec:
+  rules:
+    - host: code.billylieberman.com # Update this value to reflect the fqdn of your site
+```
+
+After these modifications/additions, apply all the yaml files and things should be up
 and running for you.
 
 ```bash
 kubectl apply -f .
 ```
+
+## Author
+Billy Lieberman <wlieberman@gmail.com>
