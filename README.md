@@ -24,7 +24,7 @@ created.  The secret will be used to log into the site.
 ```bash
 kubectl apply -f 00_namespace.yml
 echo -n 'mysecretpassword' > ./password.txt
-kubectl create secret generic coderpassword -n codercom --from-file=./password.txt
+kubectl create secret generic coderpassword -n codercom --from-file=password=./password.txt
 ```
 
 Note: `mysecretpassword` above should be the password of your choice.
